@@ -1,5 +1,8 @@
 import { Client } from "../models/Client"
 import { ServiceResponse } from "../models/ServiceResponse"
+import { ClientRepository } from "../repository/ClientRepository"
+
+const clientRepository = new ClientRepository()
 
 class ClientService {
 
@@ -33,8 +36,9 @@ class ClientService {
                     address,
                     cep
                 }
-
-                console.log(client)
+                
+                await  clientRepository.create(client)
+                 
 
                 const response:ServiceResponse = {
                     sucess :true,
@@ -53,21 +57,44 @@ class ClientService {
         const response:ServiceResponse = {
             sucess :false,
             httpCode: 500,
-            data : "error on create client"
+            data : "internal error"
         }
         return response
     }
     
     }
 
-    createZap(){
-        console.log("teste")
+    public async findAll(){
+        const result = await  clientRepository.findAll()
+
         const response:ServiceResponse = {
-            sucess :false,
-            httpCode: 500,
-            data : "error on create client"
+            sucess :true,
+            httpCode: 200,
+            data : result
         }
-        return response
+        return response 
+    }
+
+    public async findOne(id:string){
+
+        const result = await  clientRepository.findOne(id)
+        if (Object.keys(result)[0] !== undefined) {
+            const response:ServiceResponse = {
+                sucess :true,
+                httpCode: 200,
+                data : result
+            }
+            return response 
+        } else {
+            const response:ServiceResponse = {
+                sucess :true,
+                httpCode: 200,
+                data : "item not found"
+            }
+
+            return response 
+        }
+        
     }
     
 

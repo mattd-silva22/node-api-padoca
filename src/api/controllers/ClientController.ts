@@ -26,7 +26,25 @@ export class ClientController {
         
     }
 
-    public readClients(){
+    public async findOne(request:Request,response:Response){
+            const { id } = request.params
+            const result = await clientService.findOne(id)
+            return response.status(result.httpCode).json(result.data).send()
+    }
+
+    public async findAll(request:Request,response:Response){
+            const result = await clientService.findAll()
+            return response.status(result.httpCode).json(result.data).send()
+    }
+
+    public async delete(request:Request,response:Response) {
+        
+    }
+
+    public async update(request:Request,response:Response) {
 
     }
+
+    
+
 }
