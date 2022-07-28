@@ -28,12 +28,9 @@ export class ClientRepository {
     }
 
    async delete(id:string) {
-    
+    const query = "DELETE FROM clients WHERE id = ?"
+    const queryResult = await connection.promise().query(query, [id])
+    return queryResult
    }
-
-    
-
-    
-
 }
 

@@ -38,8 +38,9 @@ export class ClientController {
     }
 
     public async delete(request:Request,response:Response) {
-        const result = await clientService.delete()
-        return response.status(result.httpCode).json(result.data).send()
+        const { id } = request.params
+        const result = await clientService.delete(id)
+        return response.status(result.httpCode).json(result.message).send()
     }
 
     public async update(request:Request,response:Response) {

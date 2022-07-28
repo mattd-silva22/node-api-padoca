@@ -1,23 +1,23 @@
-import { Client } from "../models/Client"
+import { Product } from "../models/Product"
 import { ServiceResponse } from "../models/ServiceResponse"
-import { ClientRepository } from "../repository/ClientRepository"
+import { ProductRepository } from "../repository/ProductRepository"
 
-const clientRepository = new ClientRepository()
+const productRepository = new ProductRepository()
 
-class ClientService {
+class ProductsServices {
 
 
-    public async createClient(clientData:Client):Promise<ServiceResponse> {
+    public async createProduct(productData:Product):Promise<ServiceResponse> {
     
         try {
 
-            const { first_name,last_name,address,cep } = clientData
+            const { name, description, category_id  , price } = productData
 
             if(
-                first_name == undefined  || first_name.trim() == "" ||
-                last_name == undefined || last_name.trim() == "" ||
-                address == undefined || address.trim() == "" ||
-                cep == undefined 
+                name == undefined  || name.trim() == "" ||
+                description == undefined || description.trim() == "" ||
+                category_id == undefined ||  
+                price == undefined  || NaN
             ) {
                 
                 const response:ServiceResponse = {
@@ -30,20 +30,20 @@ class ClientService {
 
             } else {
                 
-                const client:Client = {
-                    first_name,
-                    last_name,
-                    address,
-                    cep
+                const product:Product = {
+                    name,
+                    description,
+                    category_id,
+                    price
                 }
                 
-                await  clientRepository.create(client)
+                await  productRepository.create(product)
                  
 
                 const response:ServiceResponse = {
                     sucess :true,
                     httpCode: 201,
-                    message : "client created"
+                    message : "product created"
                 }
 
                 return response
@@ -57,7 +57,7 @@ class ClientService {
         const response:ServiceResponse = {
             sucess :false,
             httpCode: 500,
-            data : "internal error"
+            data : `erro: ${error}`
         }
         return response
     }
@@ -65,7 +65,7 @@ class ClientService {
     }
 
     public async findAll(){
-        const result = await  clientRepository.findAll()
+        const result = await  productRepository.findAll()
 
         const response:ServiceResponse = {
             sucess :true,
@@ -77,7 +77,7 @@ class ClientService {
 
     public async findOne(id:string){
 
-        const result = await  clientRepository.findOne(id)
+        const result = await  productRepository.findOne(id)
         if (Object.keys(result)[0] !== undefined) {
             const response:ServiceResponse = {
                 sucess :true,
@@ -98,7 +98,7 @@ class ClientService {
     }
 
     async delete(id:string) {
-        const result = await  clientRepository.delete(id)
+        const result = await  productRepository.delete(id)
         if (Object.keys(result)[0] !== undefined) {
             const response:ServiceResponse = {
                 sucess :true,
@@ -116,9 +116,19 @@ class ClientService {
             return response 
         }
     }
+
+    async update(productData:Product){
+        const response:ServiceResponse = {
+            sucess :true,
+            httpCode: 200,
+            data : "confia"
+        }
+
+        return response
+    }
     
 
 }
 
 
-export {ClientService}
+export {ProductsServices}
