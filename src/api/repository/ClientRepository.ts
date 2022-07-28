@@ -20,11 +20,16 @@ export class ClientRepository {
     }
 
     async create(clientData:Client) {
-        const client = [clientData.first_name,clientData.last_name,clientData.cep,clientData.address]
+        const client = [clientData.first_name,clientData.last_name,
+                        clientData.cep,clientData.address]
         const query = " INSERT INTO clients(first_name,last_name,cep,address) VALUE (?, ? ,? , ?) "
         const queryResult = await connection.promise().query(query, client)
         return queryResult
     }
+
+   async delete(id:string) {
+    
+   }
 
     
 

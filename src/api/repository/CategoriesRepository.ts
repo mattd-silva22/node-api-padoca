@@ -21,4 +21,18 @@ export class CategoriesRepository {
         const queryResult = await connection.promise().query(query, category)
         return queryResult
     }
+    // UPDATE Customers SET ContactName = 'Alfred Schmidt', City = 'Frankfurt' WHERE CustomerID = 1;
+
+    async update(categoryData:Category) {
+        const category = [categoryData.name , categoryData.id]
+        const query = " UPDATE category SET name = ? WHERE id = ?"
+        const queryResult = await connection.promise().query(query, category)
+        return queryResult
+    }
+
+    async delete(id:string) {
+        const query = "DELETE FROM category WHERE id = ?"
+        const queryResult = await connection.promise().query(query, [id])
+        return queryResult
+    }
 }

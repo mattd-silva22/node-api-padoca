@@ -16,7 +16,9 @@ export class CategoriesController {
     }
 
     public async findOne(request:Request,response:Response) {
-
+            const { id } = request.params
+            const result = await categoriesServices.findOne(id)
+            return response.status(result.httpCode).json(result.data).send()
     }
 
     public async findAll(request:Request,response:Response) {
@@ -25,12 +27,21 @@ export class CategoriesController {
     }
 
     public async delete(request:Request,response:Response) {
-        
+        const { id } = request.params
+        const result = await categoriesServices.delete(id)
+        return response.status(result.httpCode).json({response : result.message}).send()
     }
 
     public async update(request:Request,response:Response) {
-
+        const { name  } = request.body
+        const { id } = request.params
+        const categoryData = {
+            id : id,
+            name : name
+        }
+        const result = await categoriesServices.update(categoryData)
+        return response.status(result.httpCode).json({response : result.message}).send()
+        
     }
-
-
+    
 }

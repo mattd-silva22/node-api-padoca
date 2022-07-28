@@ -96,6 +96,26 @@ class ClientService {
         }
         
     }
+
+    async delete(id:string) {
+        const result = await  clientRepository.delete(id)
+        if (Object.keys(result)[0] !== undefined) {
+            const response:ServiceResponse = {
+                sucess :true,
+                httpCode: 200,
+                data : result
+            }
+            return response 
+        } else {
+            const response:ServiceResponse = {
+                sucess :true,
+                httpCode: 200,
+                data : "item not found"
+            }
+
+            return response 
+        }
+    }
     
 
 }
