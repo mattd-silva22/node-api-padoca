@@ -18,15 +18,15 @@ export class ProductRepository {
         const product = [productData.name,productData.description,productData.category_id,productData.price]
         const query = " INSERT INTO products(name,description,id_category,price) VALUE (?,?,?,?)"
         const queryResult = await connection.promise().query(query, product)
-        console.log(queryResult[0].isertId)
+        console.log(queryResult[0])
         return queryResult
     }
     // UPDATE Customers SET ContactName = 'Alfred Schmidt', City = 'Frankfurt' WHERE CustomerID = 1;
 
-    async update(categoryData:Product) {
-        const category = [categoryData.name , categoryData.id]
-        const query = " UPDATE products SET name = ? WHERE id = ?"
-        const queryResult = await connection.promise().query(query, category)
+    async update(productData:Product) {
+        const product = [productData.name,productData.description,productData.category_id,productData.price,productData.id]
+        const query = " UPDATE products SET name = ? ,description = ? ,  id_category = ? , price WHERE id = ?"
+        const queryResult = await connection.promise().query(query, product)
         return queryResult
     }
 
