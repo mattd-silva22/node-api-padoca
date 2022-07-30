@@ -10,4 +10,8 @@ class OrderItens {
     id_amount:number;
 }
 
-export { Order , OrderItens}
+class NewOrder extends Order{
+    items : OrderItens[]
+}
+
+export { Order , OrderItens,NewOrder}

@@ -1,0 +1,15 @@
+{
+    "id_client" : 1,
+    "id_itens" : 0,
+    "create_at" : "30/07/2022",
+    "items" : [
+        {
+           "id_product" : 2 , 
+           "ammount" : 1
+        },
+        {
+            "id_product" : 1, 
+            "ammount" : 4
+         }
+    ]
+}
